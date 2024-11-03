@@ -1,4 +1,4 @@
-package com.kmate.dev.pam_android.ui.screens
+package com.kmate.dev.pam_android.ui.screens.list
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,8 +9,9 @@ import com.kmate.dev.pam_android.domain.ToDoItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ToDoViewModel: ViewModel() {
+class ToDoListViewModel: ViewModel() {
     var isLoading by mutableStateOf(false)
+        private set
     var todosList by mutableStateOf(emptyList<ToDoItem>())
         private set
 
