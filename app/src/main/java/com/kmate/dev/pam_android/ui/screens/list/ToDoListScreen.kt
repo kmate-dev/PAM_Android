@@ -26,10 +26,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kmate.dev.pam_android.domain.ToDoItem
 import com.kmate.dev.pam_android.ui.theme.PAM_AndroidTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ToDoListScreen(
-    viewModel: ToDoListViewModel,
+    viewModel: ToDoListViewModel = koinViewModel(),
     onItemClicked: (Int) -> Unit,
 ) {
     ToDoListScreen(
