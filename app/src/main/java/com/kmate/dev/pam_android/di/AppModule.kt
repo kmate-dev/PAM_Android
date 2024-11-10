@@ -20,9 +20,9 @@ val appModule = module {
     }
 
     viewModel {
-        ToDoListViewModel()
+        ToDoListViewModel(get())
     }
     viewModel {
-        ToDoItemViewModel(get())
+        ToDoItemViewModel(get(), get())
     }
 }

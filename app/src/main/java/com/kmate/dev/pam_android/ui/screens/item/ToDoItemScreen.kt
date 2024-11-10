@@ -7,23 +7,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.kmate.dev.pam_android.domain.ToDoItem
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ToDoItemScreen(
-    viewModel: ToDoItemViewModel = koinViewModel(),
-    itemId: Int
+    viewModel: ToDoItemViewModel = koinViewModel()
 ) {
     ToDoItemScreen(
-        itemId = itemId,
-        injectedString = viewModel.injectedStringExample
+        viewModel.toDoItem
     )
 }
 
 @Composable
 fun ToDoItemScreen(
-    itemId: Int,
-    injectedString: String
+    item: ToDoItem?
 ) {
     Box(
         modifier = Modifier
@@ -32,10 +30,7 @@ fun ToDoItemScreen(
     ) {
         Column {
             Text(
-                injectedString
-            )
-            Text(
-                "This screen should show details of item: $itemId"
+                "ToDoItem: $item"
             )
         }
     }

@@ -12,7 +12,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.kmate.dev.pam_android.navigation.Route
 import com.kmate.dev.pam_android.ui.screens.item.ToDoItemScreen
 import com.kmate.dev.pam_android.ui.screens.list.ToDoListScreen
@@ -54,10 +53,7 @@ fun AppNavHost(modifier: Modifier, navController: NavHostController = rememberNa
             )
         }
         composable<Route.ToDoItemRoute> {
-            val args = it.toRoute<Route.ToDoItemRoute>()
-            ToDoItemScreen(
-                itemId = args.itemId
-            )
+            ToDoItemScreen()
         }
     }
 }

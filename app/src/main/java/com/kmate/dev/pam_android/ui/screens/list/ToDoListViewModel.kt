@@ -5,32 +5,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kmate.dev.pam_android.data.local.LocalDataStore
 import com.kmate.dev.pam_android.domain.ToDoItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ToDoListViewModel: ViewModel() {
+class ToDoListViewModel(
+    private val localDataStore: LocalDataStore
+): ViewModel() {
     var isLoading by mutableStateOf(false)
         private set
     var todosList by mutableStateOf(emptyList<ToDoItem>())
         private set
 
-    private var itemId = 0
-
     init {
         //Fake fetching notes from DB
-        todosList += listOf(
-            ToDoItem(
-                id = getNextId(),
-                name = "Prepare Android Example",
-                completed = false
-            ),
-            ToDoItem(
-                id = getNextId(),
-                name = "Prepare iOS Example",
-                completed = false
-            )
-        )
+        todosList += localDataStore.getToDoItems()
     }
 
     fun addToDoItem(name: String) {
@@ -38,11 +28,14 @@ class ToDoListViewModel: ViewModel() {
             isLoading = true
             //Fake processing
             delay(500)
+            val newId = todosList.maxByOrNull { it.id }?.id?.plus(1) ?: 0
             todosList += ToDoItem(
-                id = getNextId(),
+                id = newId,
                 name = name,
                 completed = false
             )
+
+            localDataStore.updateToDoItems(todosList)
             isLoading = false
         }
     }
@@ -55,7 +48,6 @@ class ToDoListViewModel: ViewModel() {
                 todosList = newList
             }
         }
+        localDataStore.updateToDoItems(todosList)
     }
-
-    private fun getNextId() = itemId++
 }
