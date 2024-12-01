@@ -74,4 +74,14 @@ dependencies {
     /* Dependency injection framework */
     implementation("io.insert-koin:koin-androidx-compose:4.0.0")
     implementation("io.insert-koin:koin-androidx-compose-navigation:4.0.0")
+
+    /* Networking dependencies */
+    implementation("io.ktor:ktor-client-core:2.3.6")
+    implementation("io.ktor:ktor-client-okhttp:2.3.6")
+    /* Content negotiation plugin */
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.6")
+    /* Serialization plugin */
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
+    /* Logging plugin */
+    implementation("io.ktor:ktor-client-logging:2.3.6")
 }
