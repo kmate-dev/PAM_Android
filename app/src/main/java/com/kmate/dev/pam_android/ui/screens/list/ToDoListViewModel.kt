@@ -6,12 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kmate.dev.pam_android.data.local.LocalDataStore
+import com.kmate.dev.pam_android.data.remote.ApiService
 import com.kmate.dev.pam_android.domain.ToDoItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ToDoListViewModel(
-    private val localDataStore: LocalDataStore
+    private val localDataStore: LocalDataStore,
+    private val apiService: ApiService,
 ): ViewModel() {
     var isLoading by mutableStateOf(false)
         private set
@@ -21,6 +23,15 @@ class ToDoListViewModel(
     init {
         //Fake fetching notes from DB
         todosList += localDataStore.getToDoItems()
+        viewModelScope.launch {
+            apiService.getToDoItems()
+                .onSuccess {
+                    todosList += it
+                }
+                .onFailure {
+                    // Ignoring failures
+                }
+        }
     }
 
     fun addToDoItem(name: String) {
@@ -28,7 +39,8 @@ class ToDoListViewModel(
             isLoading = true
             //Fake processing
             delay(500)
-            val newId = todosList.maxByOrNull { it.id }?.id?.plus(1) ?: 0
+            //Starting from > 30 to avoid local and network items mixing (dirty workaround)
+            val newId = todosList.maxByOrNull { it.id }?.id?.plus(1) ?: 100
             todosList += ToDoItem(
                 id = newId,
                 name = name,
