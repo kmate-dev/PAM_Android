@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class BookStoreTest {
     private lateinit var store: BookStore
@@ -56,5 +58,16 @@ class BookStoreTest {
             expectedBooks,
             store.getAllBooks()
         )
+    }
+
+    @ParameterizedTest
+    @CsvSource("true, 2", "false, 100", "true, 0", "false, -5")
+    fun `removeBook returns true only if book has been removed`(
+        expectedReturnValue: Boolean,
+        bookId: Int
+    ) {
+        val returnValue = store.removeBook(bookId)
+
+        assertEquals(expectedReturnValue, returnValue)
     }
 }
