@@ -79,4 +79,16 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
     /* Logging plugin */
     implementation("io.ktor:ktor-client-logging:2.3.6")
+
+    //Tests dependencies
+
+    // JUnit Jupiter API for writing tests
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.3")
+    // JUnit Jupiter Engine for running tests
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.3")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
