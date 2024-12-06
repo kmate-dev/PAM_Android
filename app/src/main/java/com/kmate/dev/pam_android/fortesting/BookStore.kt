@@ -25,6 +25,10 @@ class BookStore(
     fun getBooksByAuthor(author: String): List<Book> {
         return books.filter { it.author.equals(author, ignoreCase = true) }
     }
+
+    fun isAuthorInCollection(author: String): Boolean {
+        return books.find { it.author.equals(author, ignoreCase = true) } != null
+    }
 }
 
 data class Book(
