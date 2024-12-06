@@ -1,5 +1,7 @@
 package com.kmate.dev.pam_android.fortesting
 
+import kotlinx.serialization.Serializable
+
 class BookStore(
     initialBooks: List<Book>
 ) {
@@ -31,6 +33,7 @@ class BookStore(
     }
 }
 
+@Serializable
 data class Book(
     val id: Int,
     val title: String,
